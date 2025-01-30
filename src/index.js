@@ -11,6 +11,8 @@ const content = document.querySelector('.content');
 const cardsContainer = content.querySelector('.places__list');
 const editPopupButton = document.querySelector('.profile__edit-button');
 const newItemPopupButton = document.querySelector('.profile__add-button');
+const profileTitle = content.querySelector('.profile__title');
+const profileDescription = content.querySelector('.profile__description');
 /** модальные окна */
 const editPopup = document.querySelector('.popup_type_edit');
 const newCardPopup = document.querySelector('.popup_type_new-card');
@@ -32,7 +34,7 @@ function handleImageClick(src, name) {
   const imgPopup = imagePopup.querySelector('.popup__image');
   const captionPopup = imagePopup.querySelector('.popup__caption');
 
-  /** Присваеваем элементам окна нужные значения */
+  /** Присваиваем элементам окна нужные значения */
   imgPopup.src = src;
   imgPopup.alt = name;
   captionPopup.textContent = name;
@@ -49,6 +51,9 @@ initialCards.forEach((elem) => {
 
 // Слушатель события клика кнопки редактирования профиля
 editPopupButton.addEventListener('click', () => {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
+
   openModal(editPopup);
 });
 
@@ -56,9 +61,6 @@ editPopupButton.addEventListener('click', () => {
 function handleFormEditSubmit(evt) {
   evt.preventDefault(); // Отменяем стандартную отправку формы
 
-  const profileTitle = content.querySelector('.profile__title');
-  const profileDescription = content.querySelector('.profile__description');
-  
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
 
