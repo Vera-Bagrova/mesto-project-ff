@@ -3,9 +3,6 @@ import { initialCards } from './scripts/cards.js';
 import { createCard, deleteCard, toggleIsLiked } from './scripts/card.js'; 
 import { openModal, closeModal } from './scripts/modal.js';
 
-// Темплейт карточки
-export const cardTemplate = document.querySelector('#card-template').content;
-
 // DOM узлы
 const content = document.querySelector('.content');
 const cardsContainer = content.querySelector('.places__list');
@@ -29,7 +26,7 @@ const placeInput = formNewPlace.elements['place-name'];
 const linkInput = formNewPlace.elements.link;
 
 // Функция-обработчик события клика по изображению карточки
-function handleImageClick(src, name) {
+const handleCardClick = (src, name) => {
   /**  находим элементы Попапа картинки */
   const imgPopup = imagePopup.querySelector('.popup__image');
   const captionPopup = imagePopup.querySelector('.popup__caption');
@@ -44,7 +41,7 @@ function handleImageClick(src, name) {
 
 // Выводим карточки на страницу
 initialCards.forEach((elem) => {
-  const card = createCard(elem, deleteCard, toggleIsLiked, handleImageClick);
+  const card = createCard(elem, deleteCard, toggleIsLiked, handleCardClick);
 
   cardsContainer.append(card);
 }); 
@@ -58,13 +55,14 @@ editPopupButton.addEventListener('click', () => {
 });
 
 // Обработчик события отправки формы редактирования профиля
-function handleFormEditSubmit(evt) {
+const handleFormEditSubmit = (evt) => {
   evt.preventDefault(); // Отменяем стандартную отправку формы
 
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
 
   closeModal(editPopup);
+  formEdit.reset();
 }
 
 // Слушатель события отправки формы редактирования профиля
@@ -76,7 +74,7 @@ newItemPopupButton.addEventListener('click', () => {
 });
 
 // Обработчик события отправки формы добавления карточки
-function handleFormCardSubmit(evt) { 
+const handleFormCardSubmit = (evt) => { 
   evt.preventDefault(); 
   
   const newData = {
@@ -84,14 +82,12 @@ function handleFormCardSubmit(evt) {
     link: linkInput.value,
   };
 
-  const newCard = createCard(newData, deleteCard, toggleIsLiked, handleImageClick);
+  const newCard = createCard(newData, deleteCard, toggleIsLiked, handleCardClick);
 
   cardsContainer.prepend(newCard);
 
   closeModal(newCardPopup);
-
-  placeInput.value = '';
-  linkInput.value = '';
+  formNewPlace.reset();
 }
 
 // Слушатель события отправки формы добавления карточки

@@ -1,8 +1,14 @@
-import { cardTemplate } from '../index.js'; 
+// Получаем Темплейт карточки
+const getTemplate = () => {
+  return document
+    .querySelector("#card-template")
+    .content.querySelector(".card")
+    .cloneNode(true);
+};
 
 // Функция создания карточки
-export function createCard(cardData, onDelete, toggleLiked, openPopup) {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+export const createCard = (cardData, onDelete, toggleLiked, openPopup) => {
+  const cardElement = getTemplate();
   const cardImage = cardElement.querySelector('.card__image');
   const cardTitle = cardElement.querySelector('.card__title');
   const deleteButton = cardElement.querySelector('.card__delete-button');
@@ -30,12 +36,12 @@ export function createCard(cardData, onDelete, toggleLiked, openPopup) {
 }
 
 // Функция-обработчик события удаления карточки
-export function deleteCard(card) {
+export const deleteCard = (card) => {
   card.remove();
 }
 
 // Функция-обработчик события лайка карточки
-export function toggleIsLiked (evt) {
+export const toggleIsLiked = (evt) => {
   if (evt.target.classList.contains('card__like-button')) {
     evt.target.classList.toggle('card__like-button_is-active');
   }
