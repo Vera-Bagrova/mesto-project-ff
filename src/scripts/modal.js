@@ -1,12 +1,10 @@
-const popups = document.querySelectorAll('.popup');
-
-popups.forEach((popup) => {
+const setPopupEventListeners = (popup) => {
   popup.classList.add('popup_is-animated');
   const closeButton = popup.querySelector('.popup__close');
   closeButton.addEventListener('click', () => {
     closeModal(popup);
   })
-});
+};
 
 // Функция открытия попапа
 const openModal = (popupElement) => {
@@ -39,4 +37,4 @@ const handleCloseModal = (evt) => {
   };
 }
 
-export { openModal, closeModal };
+export { openModal, closeModal, setPopupEventListeners };
