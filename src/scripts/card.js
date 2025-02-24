@@ -45,7 +45,7 @@ export const createCard = (cardData, currentUserId, onDelete, onLike, openPopup)
 
   /** обработчик клика по изображению, по которому будет вызван переданный в аргументах колбэк */
   cardImage.addEventListener('click', () => {
-    openPopup(cardImage.src, cardTitle.textContent);
+    openPopup(cardData.link, cardData.name);
   });
 
   return cardElement;

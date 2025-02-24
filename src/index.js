@@ -17,8 +17,11 @@ const popups = document.querySelectorAll('.popup');
 const updatePopup = document.querySelector('.popup_type_update');
 const editPopup = document.querySelector('.popup_type_edit');
 const newCardPopup = document.querySelector('.popup_type_new-card');
-const imagePopup = document.querySelector('.popup_type_image');
 const deletePopup = document.querySelector('.popup_type_delete');
+const imagePopup = document.querySelector('.popup_type_image');
+/**  элементы Попапа картинки */
+const imgPopup = imagePopup.querySelector('.popup__image');
+const captionPopup = imagePopup.querySelector('.popup__caption');
 
 /** форма обновления аватара и поле формы */
 const formUpdate = document.forms['update-avatar'];
@@ -127,24 +130,23 @@ const handleLike = (count, button, data) => {
 
 // Функция-обработчик события клика по изображению карточки
 const handleCardClick = (src, name) => {
-  /**  находим элементы Попапа картинки */
-  const imgPopup = imagePopup.querySelector('.popup__image');
-  const captionPopup = imagePopup.querySelector('.popup__caption');
-
   /** Присваиваем элементам окна нужные значения */
   imgPopup.src = src;
   imgPopup.alt = name;
   captionPopup.textContent = name;
   
   openModal(imagePopup);
-}
+};
 
-// Слушатель события клика аватара пользователя
-profileImage.addEventListener('click', () => {
+// Функция-обработчик события клика аватара пользователя
+const handleAvatarClick = () => {
   formUpdate.reset();
   clearValidation(updatePopup, validationConfig); 
   openModal(updatePopup);
-});
+};
+
+// Слушатель события клика аватара пользователя
+profileImage.addEventListener('click', handleAvatarClick);
 
 // Обработчик события отправки формы обновления аватара
 const handleFormUpdateSubmit = (evt) => {
@@ -169,14 +171,17 @@ const handleFormUpdateSubmit = (evt) => {
 // Слушатель события отправки формы обновления аватара
 formUpdate.addEventListener('submit', handleFormUpdateSubmit); 
 
-// Слушатель события клика кнопки редактирования профиля
-editPopupButton.addEventListener('click', () => {
+// Функция-обработчик события клика кнопки редактирования профиля
+const handleEditButtonClick = () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
 
   clearValidation(editPopup, validationConfig); 
   openModal(editPopup);
-});
+};
+
+// Слушатель события клика кнопки редактирования профиля
+editPopupButton.addEventListener('click', handleEditButtonClick);
 
 // Обработчик события отправки формы редактирования профиля
 const handleFormEditSubmit = (evt) => {
@@ -205,12 +210,15 @@ const handleFormEditSubmit = (evt) => {
 // Слушатель события отправки формы редактирования профиля
 formEdit.addEventListener('submit', handleFormEditSubmit); 
 
-// Слушатель события клика кнопки добавления карточки
-newItemPopupButton.addEventListener('click', () => {
+// Функция-обработчик события клика кнопки добавления карточки
+const handleNewItemButtonClick = () => {
   formNewPlace.reset(); 
   clearValidation(newCardPopup, validationConfig);
   openModal(newCardPopup);
-});
+};
+
+// Слушатель события клика кнопки добавления карточки
+newItemPopupButton.addEventListener('click', handleNewItemButtonClick);
 
 // Обработчик события отправки формы добавления карточки
 const handleFormCardSubmit = (evt) => { 
